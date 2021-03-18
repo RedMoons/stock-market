@@ -54,14 +54,14 @@ public class TwitterProducer {
         while (!client.isDone()) {
             String msg = null;
             try {
-                msg = msgQueue.poll(5, TimeUnit.SECONDS);
+                msg = msgQueue.poll(500, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 client.stop();
             }
             if (msg != null) {
                 logger.info(msg);
-                producer.send(new ProducerRecord<>("kafka", null, msg), new Callback(){
+                producer.send(new ProducerRecord<>("stockmarket", null, msg), new Callback(){
 
                     @Override
                     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
